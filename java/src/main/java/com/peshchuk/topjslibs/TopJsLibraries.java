@@ -33,15 +33,6 @@ public class TopJsLibraries {
     this.fetchHtml = fetchHtml;
   }
 
-  private static Map<String, Integer> countJs(final Future<Map<String, Integer>> pageJsCounter) {
-    try {
-      return pageJsCounter.get();
-    } catch (final InterruptedException | ExecutionException e) {
-      LOGGER.log(Level.SEVERE, "Cannot count JS", e);
-      return Collections.emptyMap();
-    }
-  }
-
   public Map<String, Integer> count(final String searchStr) {
     final var threadNum = linksLimit - 1;
     final ExecutorService executorService = Executors.newFixedThreadPool(threadNum);
@@ -81,5 +72,14 @@ public class TopJsLibraries {
 
   private PageJsCount newPageJsCounter(final List<String> links, final int linkNum) {
     return new PageJsCount(() -> fetchHtml.apply(links.get(linkNum)));
+  }
+
+  private static Map<String, Integer> countJs(final Future<Map<String, Integer>> pageJsCounter) {
+    try {
+      return pageJsCounter.get();
+    } catch (final InterruptedException | ExecutionException e) {
+      LOGGER.log(Level.SEVERE, "Cannot count JS", e);
+      return Collections.emptyMap();
+    }
   }
 }
