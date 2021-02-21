@@ -2,6 +2,9 @@ plugins {
     java
 }
 
+group = "com.peshchuk"
+version = "1.0-SNAPSHOT"
+
 repositories {
     jcenter()
 }

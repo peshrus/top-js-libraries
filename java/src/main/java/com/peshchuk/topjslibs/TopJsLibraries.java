@@ -1,12 +1,14 @@
 package com.peshchuk.topjslibs;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -39,23 +41,30 @@ public class TopJsLibraries {
 
     try {
       final List<String> links = getLinks(searchStr);
-      final var pageJsCounters = new ArrayList<Future<Map<String, Integer>>>(threadNum);
+      final var pagesJsSources = new ArrayList<Future<Set<String>>>(threadNum);
 
       for (int i = 0; i < threadNum; i++) {
-        final var pageJsCounter = executorService.submit(newPageJsCounter(links, i));
-        pageJsCounters.add(pageJsCounter);
+        final var pageJsSources = executorService.submit(newPageJsSources(links, i));
+        pagesJsSources.add(pageJsSources);
       }
 
-      final var result = new HashMap<>(newPageJsCounter(links, threadNum).call());
-      pageJsCounters.stream()
-          .map(TopJsLibraries::countJs)
-          .flatMap(map -> map.entrySet().stream())
-          .forEach(entry -> result.merge(entry.getKey(), entry.getValue(), Integer::sum));
+      final var lastPageJsNum = newPageJsSources(links, threadNum).call()
+          .stream()
+          .collect(Collectors.toMap(js -> js, js -> 1));
+      final var result = new HashMap<>(lastPageJsNum);
+      pagesJsSources
+          .stream()
+          .map(TopJsLibraries::getJsSources)
+          .flatMap(Collection::stream)
+          .forEach(js -> result.merge(js, 1, Integer::sum));
 
-      final var sortByCountDescSrcAsc = Entry.<String, Integer>comparingByValue().reversed()
+      final var sortByCountDescSrcAsc = Entry
+          .<String, Integer>comparingByValue()
+          .reversed()
           .thenComparing(Entry.comparingByKey());
 
-      return Collections.unmodifiableMap(result.entrySet().stream()
+      return Collections.unmodifiableMap(result.entrySet()
+          .stream()
           .sorted(sortByCountDescSrcAsc)
           .limit(topLimit)
           .collect(
@@ -70,16 +79,16 @@ public class TopJsLibraries {
     return new GoogleSearchResult(linksLimit, () -> fetchHtml.apply(searchUri)).getLinks();
   }
 
-  private PageJsCount newPageJsCounter(final List<String> links, final int linkNum) {
-    return new PageJsCount(() -> fetchHtml.apply(links.get(linkNum)));
+  private PageJsSources newPageJsSources(final List<String> links, final int linkNum) {
+    return new PageJsSources(() -> fetchHtml.apply(links.get(linkNum)));
   }
 
-  private static Map<String, Integer> countJs(final Future<Map<String, Integer>> pageJsCounter) {
+  private static Set<String> getJsSources(final Future<Set<String>> pageJsSources) {
     try {
-      return pageJsCounter.get();
+      return pageJsSources.get();
     } catch (final InterruptedException | ExecutionException e) {
       LOGGER.log(Level.SEVERE, "Cannot count JS", e);
-      return Collections.emptyMap();
+      return Collections.emptySet();
     }
   }
 }

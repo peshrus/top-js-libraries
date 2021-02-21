@@ -5,7 +5,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpClient.Redirect;
 import java.net.http.HttpClient.Version;
 import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
@@ -29,9 +28,9 @@ public class Main {
     final var topJsLibraries = new TopJsLibraries(5, 5, Main::fetchHtml);
     final var count = topJsLibraries.count(searchStr);
 
-    count.forEach((key, value) -> System.out.println("[" + value + "] " + key));
-
     LOGGER.info("Finish");
+
+    count.forEach((key, value) -> System.out.println("[" + value + "] " + key));
   }
 
   private static String fetchHtml(final String uri) {
@@ -48,10 +47,9 @@ public class Main {
         .followRedirects(Redirect.ALWAYS)
         .connectTimeout(Duration.of(1, ChronoUnit.SECONDS))
         .build();
-    final HttpResponse<String> response;
 
     try {
-      response = httpClient.send(request, BodyHandlers.ofString());
+      final var response = httpClient.send(request, BodyHandlers.ofString());
 
       if (response.statusCode() < 200 || response.statusCode() >= 400) {
         throw new Exception("HTTP Status " + response.statusCode() + ": " + uri);
