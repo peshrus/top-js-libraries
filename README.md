@@ -4,3 +4,4 @@ The program searches the specified string on Google, takes first 5 results, coll
 
 # Implementations
 - Java
+- Kotlin
