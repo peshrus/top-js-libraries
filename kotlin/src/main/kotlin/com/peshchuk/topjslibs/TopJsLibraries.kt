@@ -14,7 +14,7 @@ class TopJsLibraries(private val linksLimit: Int,
         val links = GoogleSearchResult(linksLimit) { fetchHtml(SEARCH_URL + searchStr) }.getLinks()
         val pagesJsSources = (0 until linksLimit).map { linkNum ->
             GlobalScope.async {
-                PageJsSources { fetchHtml(links[linkNum]) }.getJsSources()
+                PageJsSources { fetchHtml(links[linkNum]) }.get()
             }
         }
         val comparator = compareByDescending<Pair<String, Int>> { (_, value) -> value }

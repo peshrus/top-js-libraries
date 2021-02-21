@@ -4,7 +4,7 @@ private const val SCRIPT_SRC = """<script[^>]+src=["']([^"']+/)?([^"']+)["']"""
 
 class PageJsSources(private val fetchHtml: () -> String) {
 
-    fun getJsSources(): Set<String> {
+    fun get(): Set<String> {
         val html = fetchHtml()
         val matchResults = SCRIPT_SRC.toRegex().findAll(html)
 
