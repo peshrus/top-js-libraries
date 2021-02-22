@@ -3,6 +3,7 @@ package com.peshchuk.topjslibs;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 public class TopJsLibrariesTest {
@@ -18,7 +19,10 @@ public class TopJsLibrariesTest {
     expected.put("application-0d7a7bcfe504533ad327.js", 1);
 
     // Act
-    final var actual = new TopJsLibraries(5, 5, TopJsLibrariesTest::fetchHtml).count("test");
+    final Map<String, Integer> actual;
+    try (final var topJsLibraries = new TopJsLibraries(5, 5, TopJsLibrariesTest::fetchHtml)) {
+      actual = topJsLibraries.count("test");
+    }
 
     // Assert
     assertEquals(expected, actual);

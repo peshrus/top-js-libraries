@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,7 +18,9 @@ public class Util {
 
   public static String getHtml(final String fileName) {
     try {
-      return Files.readString(Path.of(Util.class.getResource("/" + fileName).toURI()));
+      final var buildDir = Path.of(Util.class.getResource("/").toURI()).toString();
+      final var path = Paths.get(buildDir, "../../../../../html", fileName);
+      return Files.readString(path);
     } catch (final IOException | URISyntaxException e) {
       LOGGER.log(Level.SEVERE, "Cannot get HTML", e);
       return "";

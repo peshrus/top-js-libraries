@@ -18,7 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-public class TopJsLibraries {
+public class TopJsLibraries implements AutoCloseable {
 
   private static final Logger LOGGER = Logger.getLogger(TopJsLibraries.class.getName());
 
@@ -27,54 +27,57 @@ public class TopJsLibraries {
   private final int linksLimit;
   private final int topLimit;
   private final Function<String, String> fetchHtml;
+  private final ExecutorService executorService;
 
   public TopJsLibraries(final int linksLimit, final int topLimit,
       final Function<String, String> fetchHtml) {
     this.linksLimit = linksLimit;
     this.topLimit = topLimit;
     this.fetchHtml = fetchHtml;
+    // Number of threads = Number of Available Cores * (1 + Wait time / Service time)
+    // The current implementation is a simplified version of the above formula
+    this.executorService = Executors
+        .newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
+  }
+
+  @Override
+  public void close() {
+    executorService.shutdown();
   }
 
   public Map<String, Integer> count(final String searchStr) {
-    final var threadNum = linksLimit - 1;
-    final ExecutorService executorService = Executors.newFixedThreadPool(threadNum);
+    final var googleResults = getGoogleResults(searchStr);
+    final var pagesJsSources = new ArrayList<Future<Set<String>>>(linksLimit - 1);
 
-    try {
-      final List<String> links = getLinks(searchStr);
-      final var pagesJsSources = new ArrayList<Future<Set<String>>>(threadNum);
-
-      for (int i = 0; i < threadNum; i++) {
-        final var pageJsSources = executorService.submit(newPageJsSources(links, i));
-        pagesJsSources.add(pageJsSources);
-      }
-
-      final var lastPageJsNum = newPageJsSources(links, threadNum).call()
-          .stream()
-          .collect(Collectors.toMap(js -> js, js -> 1));
-      final var result = new HashMap<>(lastPageJsNum);
-      pagesJsSources
-          .stream()
-          .map(TopJsLibraries::getJsSources)
-          .flatMap(Collection::stream)
-          .forEach(js -> result.merge(js, 1, Integer::sum));
-
-      final var sortByCountDescSrcAsc = Entry
-          .<String, Integer>comparingByValue()
-          .reversed()
-          .thenComparing(Entry.comparingByKey());
-
-      return Collections.unmodifiableMap(result.entrySet()
-          .stream()
-          .sorted(sortByCountDescSrcAsc)
-          .limit(topLimit)
-          .collect(
-              Collectors.toMap(Entry::getKey, Entry::getValue, Integer::sum, LinkedHashMap::new)));
-    } finally {
-      executorService.shutdown();
+    for (int i = 1; i < linksLimit; i++) {
+      final var pageJsSources = executorService.submit(newPageJsSources(googleResults, i));
+      pagesJsSources.add(pageJsSources);
     }
+
+    final var firstPageJsNum = newPageJsSources(googleResults, 0).call()
+        .stream()
+        .collect(Collectors.toMap(js -> js, js -> 1));
+    final var result = new HashMap<>(firstPageJsNum);
+    pagesJsSources
+        .stream()
+        .map(TopJsLibraries::getJsSources)
+        .flatMap(Collection::stream)
+        .forEach(js -> result.merge(js, 1, Integer::sum));
+
+    final var sortByCountDescSrcAsc = Entry
+        .<String, Integer>comparingByValue()
+        .reversed()
+        .thenComparing(Entry.comparingByKey());
+
+    return Collections.unmodifiableMap(result.entrySet()
+        .stream()
+        .sorted(sortByCountDescSrcAsc)
+        .limit(topLimit)
+        .collect(
+            Collectors.toMap(Entry::getKey, Entry::getValue, Integer::sum, LinkedHashMap::new)));
   }
 
-  private List<String> getLinks(final String arg) {
+  private List<String> getGoogleResults(final String arg) {
     final var searchUri = SEARCH_URL + arg;
     return new GoogleSearchResult(linksLimit, () -> fetchHtml.apply(searchUri)).getLinks();
   }

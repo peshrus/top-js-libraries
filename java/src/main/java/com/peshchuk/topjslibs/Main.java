@@ -8,6 +8,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,10 +26,12 @@ public class Main {
 
     LOGGER.info("Start");
 
-    final var topJsLibraries = new TopJsLibraries(5, 5, Main::fetchHtml);
-    final var count = topJsLibraries.count(searchStr);
-
-    LOGGER.info("Finish");
+    final Map<String, Integer> count;
+    try (final var topJsLibraries = new TopJsLibraries(5, 5, Main::fetchHtml)) {
+      count = topJsLibraries.count(searchStr);
+    } finally {
+      LOGGER.info("Finish");
+    }
 
     count.forEach((key, value) -> System.out.println("[" + value + "] " + key));
   }
