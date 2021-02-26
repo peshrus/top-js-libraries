@@ -5,3 +5,4 @@ The program searches the specified string on Google, takes first 5 results, coll
 # Implementations
 - [Java](java/src/main/java/com/peshchuk/topjslibs)
 - [Kotlin](kotlin/src/main/kotlin/com/peshchuk/topjslibs)
+- [Go](go/topjslibs)
