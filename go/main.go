@@ -59,7 +59,9 @@ func fetchHtml(url string) string {
 
 	defer func() {
 		closeErr := resp.Body.Close()
-		log.Println(closeErr)
+		if closeErr != nil {
+			log.Println(closeErr)
+		}
 	}()
 
 	body, err := io.ReadAll(resp.Body)

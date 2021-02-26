@@ -1,17 +1,7 @@
-defaultTasks("clean", "build")
-
-task<Exec>("clean") {
-    workingDir = java.nio.file.Paths.get("topjslibs").toFile()
-    commandLine("go", "clean")
+plugins {
+    id("com.github.blindpirate.gogradle") version "0.11.4"
 }
 
-task<Exec>("build") {
-    dependsOn("test")
-    workingDir = java.nio.file.Paths.get("topjslibs").toFile()
-    commandLine("go", "build")
-}
-
-task<Exec>("test") {
-    workingDir = java.nio.file.Paths.get("topjslibs").toFile()
-    commandLine("go", "test")
+golang {
+    packagePath = "github.com/peshrus/top-js-libraries/go"
 }
