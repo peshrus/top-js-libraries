@@ -28,8 +28,8 @@ public class TopJsLibrariesTest {
     assertEquals(expected, actual);
   }
 
-  private static String fetchHtml(final String uri) {
-    return switch (uri) {
+  private static String fetchHtml(final String url) {
+    return switch (url) {
       case "https://www.google.com/search?q=test" -> Util.getHtml("google.com.html");
 
       case "https://www.test.de/" -> Util.getHtml("test.de.html");

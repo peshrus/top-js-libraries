@@ -19,7 +19,7 @@ fun main(args: Array<String>) {
 
     LOGGER.info("Start")
 
-    val topJsLibraries = TopJsLibraries(5, 5) { uri -> fetchHtml(uri) }
+    val topJsLibraries = TopJsLibraries(5, 5) { url -> fetchHtml(url) }
     val count = topJsLibraries.count(searchStr)
 
     LOGGER.info("Finish")
@@ -27,12 +27,12 @@ fun main(args: Array<String>) {
     count.forEach { (key, value) -> println("[$value] $key") }
 }
 
-private fun fetchHtml(uri: String): String {
-    LOGGER.fine("Fetch: $uri")
+private fun fetchHtml(url: String): String {
+    LOGGER.fine("Fetch: $url")
 
     return runBlocking {
         HttpClient(CIO).use { client ->
-            val response: HttpResponse = client.get(uri) {
+            val response: HttpResponse = client.get(url) {
                 headers {
                     append(
                         "User-Agent",
@@ -45,7 +45,7 @@ private fun fetchHtml(uri: String): String {
             val status = response.status.value
 
             if (status < 200 || status >= 400) {
-                LOGGER.severe("HTTP Status $status: $uri")
+                LOGGER.severe("HTTP Status $status: $url")
                 ""
             } else {
                 response.readText()

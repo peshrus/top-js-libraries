@@ -17,14 +17,14 @@ internal class TopJsLibrariesTest {
         )
 
         // Act
-        val actual = TopJsLibraries(5, 5) { uri -> fetchHtml(uri) }.count("test")
+        val actual = TopJsLibraries(5, 5) { url -> fetchHtml(url) }.count("test")
 
         // Assert
         assertEquals(expected, actual)
     }
 
-    private fun fetchHtml(uri: String): String {
-        return when (uri) {
+    private fun fetchHtml(url: String): String {
+        return when (url) {
             "https://www.google.com/search?q=test" -> Util.getHtml("google.com.html")
 
             "https://www.test.de/" -> Util.getHtml("test.de.html")

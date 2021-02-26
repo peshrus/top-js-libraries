@@ -36,11 +36,11 @@ public class Main {
     count.forEach((key, value) -> System.out.println("[" + value + "] " + key));
   }
 
-  private static String fetchHtml(final String uri) {
-    LOGGER.fine("Fetch: " + uri);
+  private static String fetchHtml(final String url) {
+    LOGGER.fine("Fetch: " + url);
 
     final var request = HttpRequest.newBuilder()
-        .uri(URI.create(uri))
+        .uri(URI.create(url))
         .header("User-Agent",
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0")
         .header("Referer", "http://www.goole.com")
@@ -55,7 +55,7 @@ public class Main {
       final var response = httpClient.send(request, BodyHandlers.ofString());
 
       if (response.statusCode() < 200 || response.statusCode() >= 400) {
-        throw new Exception("HTTP Status " + response.statusCode() + ": " + uri);
+        throw new Exception("HTTP Status " + response.statusCode() + ": " + url);
       }
 
       return response.body();
