@@ -16,8 +16,7 @@ func main() {
 
 	if len(argsWithoutProg) == 0 {
 		_, err := os.Stderr.WriteString("Specify the Google search query, please")
-		log.Println(err)
-		os.Exit(1)
+		panic(err)
 	}
 
 	searchStr := argsWithoutProg[0]
@@ -53,8 +52,15 @@ func fetchHtml(url string) string {
 		return ""
 	}
 
-	//goland:noinspection GoUnhandledErrorResult
-	defer resp.Body.Close()
+	if resp.StatusCode < 200 || resp.StatusCode >= 400 {
+		log.Printf("HTTP Status %d: %s\n", resp.StatusCode, url)
+		return ""
+	}
+
+	defer func() {
+		closeErr := resp.Body.Close()
+		log.Println(closeErr)
+	}()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {

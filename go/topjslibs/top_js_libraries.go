@@ -38,14 +38,14 @@ func (pageJsSources *TopJsLibraries) Count(searchStr string) TopJsNumList {
 	jsSources := make(chan string)
 	var wg sync.WaitGroup
 
-	for linkNum := 0; linkNum < len(links); linkNum++ {
+	for _, link := range links {
 		wg.Add(1)
 
-		url := links[linkNum]
+		url := link
 		fetchPageHtml := func() string { return pageJsSources.FetchHtml(url) }
 		pageJsSources := PageJsSources{fetchHtml: fetchPageHtml}
 
-		go getPageJsSources(&pageJsSources, &jsSources, &wg)
+		go getPageJsSources(&pageJsSources, jsSources, &wg)
 	}
 
 	go func() {
@@ -67,10 +67,10 @@ func (pageJsSources *TopJsLibraries) Count(searchStr string) TopJsNumList {
 	return result[:pageJsSources.TopLimit]
 }
 
-func getPageJsSources(pageJsSources *PageJsSources, jsSources *chan string, wg *sync.WaitGroup) {
+func getPageJsSources(pageJsSources *PageJsSources, jsSources chan string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	for _, jsSrc := range pageJsSources.get() {
-		*jsSources <- jsSrc
+		jsSources <- jsSrc
 	}
 }
