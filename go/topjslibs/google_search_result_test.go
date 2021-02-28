@@ -1,8 +1,6 @@
 package topjslibs
 
-import (
-	"testing"
-)
+import "testing"
 
 func TestGetLinks(t *testing.T) {
 	// Arrange

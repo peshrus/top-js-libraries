@@ -1,8 +1,6 @@
 package topjslibs
 
-import (
-	"testing"
-)
+import "testing"
 
 func TestCount(t *testing.T) {
 	// Arrange

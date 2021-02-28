@@ -1,10 +1,8 @@
 package topjslibs
 
-import (
-	"regexp"
-)
+import "regexp"
 
-const SearchResultLink = "<a href=\"([^\"]+)\"[^>]+data-ved=\"[^\"]+\"[^>]+onmousedown=\"[^\"]+\"><br>"
+var searchResultLink = regexp.MustCompile(`<a href="([^"]+)"[^>]+data-ved="[^"]+"[^>]+onmousedown="[^"]+"><br>`)
 
 type GoogleSearchResult struct {
 	linksLimit int
@@ -13,15 +11,19 @@ type GoogleSearchResult struct {
 
 func (googleSearchResult *GoogleSearchResult) getLinks() []string {
 	html := googleSearchResult.fetchHtml()
-	links := regexp.MustCompile(SearchResultLink).FindAllStringSubmatch(html, -1)
+	links := searchResultLink.FindAllStringSubmatch(html, -1)
 	result := make([]string, 0, googleSearchResult.linksLimit)
 
-	for i, regexGroups := range links {
-		if i >= googleSearchResult.linksLimit {
-			break
+	for _, regexGroups := range links {
+		if len(regexGroups) < 2 {
+			continue
 		}
 
 		result = append(result, regexGroups[1])
+
+		if len(result) == googleSearchResult.linksLimit {
+			break
+		}
 	}
 
 	return result

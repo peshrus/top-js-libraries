@@ -1,10 +1,8 @@
 package topjslibs
 
-import (
-	"regexp"
-)
+import "regexp"
 
-const ScriptSrc = "<script[^>]+src=[\"']([^\"']+/)?([^\"']+)[\"']"
+var scriptSrc = regexp.MustCompile(`<script[^>]+src=["']([^"']+/)?([^"']+)["']`)
 
 type PageJsSources struct {
 	fetchHtml func() string
@@ -12,15 +10,19 @@ type PageJsSources struct {
 
 func (pageJsSources *PageJsSources) get() []string {
 	html := pageJsSources.fetchHtml()
-	src := regexp.MustCompile(ScriptSrc).FindAllStringSubmatch(html, -1)
-	uniqueSrc := make(map[string]bool, len(src))
+	jsSources := scriptSrc.FindAllStringSubmatch(html, -1)
+	uniqueJsSources := make(map[string]bool, len(jsSources))
 
-	for _, regexGroups := range src {
-		uniqueSrc[regexGroups[2]] = true
+	for _, regexGroups := range jsSources {
+		if len(regexGroups) < 3 {
+			continue
+		}
+
+		uniqueJsSources[regexGroups[2]] = true
 	}
 
-	result := make([]string, 0, len(uniqueSrc))
-	for key := range uniqueSrc {
+	result := make([]string, 0, len(uniqueJsSources))
+	for key := range uniqueJsSources {
 		result = append(result, key)
 	}
 

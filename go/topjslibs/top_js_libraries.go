@@ -19,8 +19,14 @@ func (jsNum JsNum) String() string {
 
 type TopJsNumList []JsNum
 
-func (t TopJsNumList) Len() int      { return len(t) }
-func (t TopJsNumList) Swap(i, j int) { t[i], t[j] = t[j], t[i] }
+func (t TopJsNumList) Len() int {
+	return len(t)
+}
+
+func (t TopJsNumList) Swap(i, j int) {
+	t[i], t[j] = t[j], t[i]
+}
+
 func (t TopJsNumList) Less(i, j int) bool {
 	return t[i].Num > t[j].Num || (t[i].Num == t[j].Num && t[i].Js < t[j].Js)
 }
@@ -48,15 +54,15 @@ func (pageJsSources *TopJsLibraries) Count(searchStr string) TopJsNumList {
 		go getPageJsSources(&pageJsSources, jsSources, &wg)
 	}
 
+	preResult := make(map[string]int)
 	go func() {
-		wg.Wait()
-		close(jsSources)
+		for jsSrc := range jsSources {
+			preResult[jsSrc]++
+		}
 	}()
 
-	preResult := make(map[string]int)
-	for jsSrc := range jsSources {
-		preResult[jsSrc] += 1
-	}
+	wg.Wait()
+	close(jsSources)
 
 	result := make(TopJsNumList, 0, len(preResult))
 	for js := range preResult {

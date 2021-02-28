@@ -1,8 +1,6 @@
 package topjslibs
 
-import (
-	"testing"
-)
+import "testing"
 
 func TestGet(t *testing.T) {
 	// Arrange
