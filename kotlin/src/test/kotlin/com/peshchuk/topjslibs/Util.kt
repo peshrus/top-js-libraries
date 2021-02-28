@@ -17,7 +17,7 @@ class Util {
     }
 
     companion object {
-        fun getHtml(fileName: String): String {
+        fun getHtmlFrom(fileName: String): String {
             return try {
                 val buildDir = Path.of(Util::class.java.getResource("/").toURI()).toString()
                 val path = Paths.get(buildDir, "../../../../../html", fileName)

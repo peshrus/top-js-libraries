@@ -19,7 +19,7 @@ fun main(args: Array<String>) {
 
     LOGGER.info("Start")
 
-    val topJsLibraries = TopJsLibraries(5, 5) { url -> fetchHtml(url) }
+    val topJsLibraries = TopJsLibraries(linksLimit = 5, topLimit = 5) { url -> fetchHtml(url) }
     val count = topJsLibraries.count(searchStr)
 
     LOGGER.info("Finish")

@@ -15,9 +15,11 @@ internal class GoogleSearchResultTest {
             "https://www.oekotest.de/",
             "https://de.wikipedia.org/wiki/Test_(Zeitschrift)"
         )
+        val googleSearchResult =
+            GoogleSearchResult(linksLimit = 5) { Util.getHtmlFrom("google.com.html") }
 
         // Act
-        val actual = GoogleSearchResult(5) { Util.getHtml("google.com.html") }.getLinks()
+        val actual = googleSearchResult.getLinks()
 
         // Assert
         assertEquals(expected, actual)

@@ -15,9 +15,10 @@ internal class TopJsLibrariesTest {
             Pair("webtrekk_cookieControl.min;v35893530.js", 2),
             Pair("application-0d7a7bcfe504533ad327.js", 1)
         )
+        val topJsLibraries = TopJsLibraries(linksLimit = 5, topLimit = 5) { url -> fetchHtml(url) }
 
         // Act
-        val actual = TopJsLibraries(5, 5) { url -> fetchHtml(url) }.count("test")
+        val actual = topJsLibraries.count("test")
 
         // Assert
         assertEquals(expected, actual)
@@ -25,13 +26,13 @@ internal class TopJsLibrariesTest {
 
     private fun fetchHtml(url: String): String {
         return when (url) {
-            "https://www.google.com/search?q=test" -> Util.getHtml("google.com.html")
+            "https://www.google.com/search?q=test" -> Util.getHtmlFrom("google.com.html")
 
-            "https://www.test.de/" -> Util.getHtml("test.de.html")
-            "https://www.test.de/shop/test-hefte/" -> Util.getHtml("test-hefte.html")
-            "https://www.test.de/thema/" -> Util.getHtml("thema.html")
-            "https://www.oekotest.de/" -> Util.getHtml("oekotest.de.html")
-            "https://de.wikipedia.org/wiki/Test_(Zeitschrift)" -> Util.getHtml("zeitschrift.html")
+            "https://www.test.de/" -> Util.getHtmlFrom("test.de.html")
+            "https://www.test.de/shop/test-hefte/" -> Util.getHtmlFrom("test-hefte.html")
+            "https://www.test.de/thema/" -> Util.getHtmlFrom("thema.html")
+            "https://www.oekotest.de/" -> Util.getHtmlFrom("oekotest.de.html")
+            "https://de.wikipedia.org/wiki/Test_(Zeitschrift)" -> Util.getHtmlFrom("zeitschrift.html")
 
             else -> ""
         }

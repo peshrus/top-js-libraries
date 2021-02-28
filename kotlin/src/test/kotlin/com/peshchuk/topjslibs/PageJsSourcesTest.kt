@@ -14,9 +14,10 @@ internal class PageJsSourcesTest {
             "webtrekk_cookieControl.min;v35620016.js",
             "webtk.min;v35620016.js"
         )
+        val pageJsSources = PageJsSources { Util.getHtmlFrom("test.de.html") }
 
         // Act
-        val actual = PageJsSources { Util.getHtml("test.de.html") }.get()
+        val actual = pageJsSources.get()
 
         // Assert
         assertEquals(expected, actual)
