@@ -8,6 +8,9 @@ class PageJsSources(private val fetchHtml: () -> String) {
         val html = fetchHtml()
         val matchResults = SCRIPT_SRC.toRegex().findAll(html)
 
-        return matchResults.map { matchResult -> matchResult.groups[2]?.value!! }.toSet()
+        return matchResults
+            .filter { matchResult -> matchResult.groups.size > 2 }
+            .map { matchResult -> matchResult.groups[2]?.value!! }
+            .toSet()
     }
 }
