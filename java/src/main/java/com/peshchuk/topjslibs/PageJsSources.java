@@ -25,6 +25,10 @@ public class PageJsSources implements Callable<Set<String>> {
     final var result = new HashSet<String>();
 
     while (matcher.find()) {
+      if (matcher.groupCount() < 2) {
+        continue;
+      }
+
       final var src = matcher.group(2);
       result.add(src);
     }

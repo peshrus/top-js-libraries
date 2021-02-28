@@ -25,6 +25,10 @@ public class GoogleSearchResult {
     final var result = new ArrayList<String>(linksLimit);
 
     while (matcher.find() && result.size() < linksLimit) {
+      if (matcher.groupCount() < 1) {
+        continue;
+      }
+
       final var href = matcher.group(1);
       result.add(href);
     }
