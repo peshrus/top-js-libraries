@@ -16,7 +16,7 @@ public class Util {
     throw new IllegalStateException("Cannot be initialized");
   }
 
-  public static String getHtml(final String fileName) {
+  public static String getHtmlFrom(final String fileName) {
     try {
       final var buildDir = Path.of(Util.class.getResource("/").toURI()).toString();
       final var path = Paths.get(buildDir, "../../../../../html", fileName);

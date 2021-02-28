@@ -19,7 +19,7 @@ public class GoogleSearchResultTest {
     );
 
     // Act
-    final var actual = new GoogleSearchResult(5, () -> Util.getHtml("google.com.html"))
+    final var actual = new GoogleSearchResult(5, () -> Util.getHtmlFrom("google.com.html"))
         .getLinks();
 
     // Assert

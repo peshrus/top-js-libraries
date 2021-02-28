@@ -30,13 +30,14 @@ public class TopJsLibrariesTest {
 
   private static String fetchHtml(final String url) {
     return switch (url) {
-      case "https://www.google.com/search?q=test" -> Util.getHtml("google.com.html");
+      case "https://www.google.com/search?q=test" -> Util.getHtmlFrom("google.com.html");
 
-      case "https://www.test.de/" -> Util.getHtml("test.de.html");
-      case "https://www.test.de/shop/test-hefte/" -> Util.getHtml("test-hefte.html");
-      case "https://www.test.de/thema/" -> Util.getHtml("thema.html");
-      case "https://www.oekotest.de/" -> Util.getHtml("oekotest.de.html");
-      case "https://de.wikipedia.org/wiki/Test_(Zeitschrift)" -> Util.getHtml("zeitschrift.html");
+      case "https://www.test.de/" -> Util.getHtmlFrom("test.de.html");
+      case "https://www.test.de/shop/test-hefte/" -> Util.getHtmlFrom("test-hefte.html");
+      case "https://www.test.de/thema/" -> Util.getHtmlFrom("thema.html");
+      case "https://www.oekotest.de/" -> Util.getHtmlFrom("oekotest.de.html");
+      case "https://de.wikipedia.org/wiki/Test_(Zeitschrift)" -> Util
+          .getHtmlFrom("zeitschrift.html");
 
       default -> "";
     };

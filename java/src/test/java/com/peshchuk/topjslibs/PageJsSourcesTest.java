@@ -17,7 +17,7 @@ public class PageJsSourcesTest {
     expected.add("webtk.min;v35620016.js");
 
     // Act
-    final var actual = new PageJsSources(() -> Util.getHtml("test.de.html")).call();
+    final var actual = new PageJsSources(() -> Util.getHtmlFrom("test.de.html")).call();
 
     // Assert
     assertEquals(expected, actual);
