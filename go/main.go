@@ -44,7 +44,7 @@ func fetchHtml(url string) string {
 	}
 
 	req.Header.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0")
-	req.Header.Add("Referer", "http://www.goole.com")
+	req.Header.Add("Referer", "http://www.google.com")
 
 	resp, err := client.Do(req)
 	if err != nil {

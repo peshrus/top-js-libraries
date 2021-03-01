@@ -43,7 +43,7 @@ public class Main {
         .uri(URI.create(url))
         .header("User-Agent",
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0")
-        .header("Referer", "http://www.goole.com")
+        .header("Referer", "http://www.google.com")
         .build();
     final var httpClient = HttpClient.newBuilder()
         .version(Version.HTTP_2)
