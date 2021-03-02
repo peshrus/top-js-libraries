@@ -2,7 +2,7 @@ package topjslibs
 
 import "regexp"
 
-var searchResultLink = regexp.MustCompile(`<a href="([^"]+)"[^>]+data-ved="[^"]+"[^>]+onmousedown="[^"]+"><br>`)
+var searchResultLink = regexp.MustCompile(`<a href="([^"]+?)"[^>]+?data-ved="[^"]+?"[^>]+?onmousedown="[^"]+?"><br>`)
 
 type GoogleSearchResult struct {
 	linksLimit int

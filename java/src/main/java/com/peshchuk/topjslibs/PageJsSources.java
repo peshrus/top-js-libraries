@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class PageJsSources implements Callable<Set<String>> {
 
   private static final Pattern SCRIPT_SRC = Pattern
-      .compile("<script[^>]+src=[\"']([^\"']+/)?([^\"']+)[\"']");
+      .compile("<script[^>]+?src=[\"'](?:[^\"']+/)?([^\"']+?)[\"']");
 
   private final Supplier<String> htmlSupplier;
 
@@ -25,11 +25,11 @@ public class PageJsSources implements Callable<Set<String>> {
     final var result = new HashSet<String>();
 
     while (matcher.find()) {
-      if (matcher.groupCount() < 2) {
+      if (matcher.groupCount() < 1) {
         continue;
       }
 
-      final var src = matcher.group(2);
+      final var src = matcher.group(1);
       result.add(src);
     }
 

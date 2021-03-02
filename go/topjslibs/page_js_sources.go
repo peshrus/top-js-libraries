@@ -2,7 +2,7 @@ package topjslibs
 
 import "regexp"
 
-var scriptSrc = regexp.MustCompile(`<script[^>]+src=["']([^"']+/)?([^"']+)["']`)
+var scriptSrc = regexp.MustCompile(`<script[^>]+?src=["'](?:[^"']+/)?([^"']+?)["']`)
 
 type PageJsSources struct {
 	fetchHtml func() string
@@ -14,11 +14,11 @@ func (pageJsSources *PageJsSources) get() []string {
 	uniqueJsSources := make(map[string]bool, len(jsSources))
 
 	for _, regexGroups := range jsSources {
-		if len(regexGroups) < 3 {
+		if len(regexGroups) < 2 {
 			continue
 		}
 
-		uniqueJsSources[regexGroups[2]] = true
+		uniqueJsSources[regexGroups[1]] = true
 	}
 
 	result := make([]string, 0, len(uniqueJsSources))

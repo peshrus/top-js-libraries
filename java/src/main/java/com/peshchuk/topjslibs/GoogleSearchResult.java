@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class GoogleSearchResult {
 
   private static final Pattern SEARCH_RESULT_LINK = Pattern
-      .compile("<a href=\"([^\"]+)\"[^>]+data-ved=\"[^\"]+\"[^>]+onmousedown=\"[^\"]+\"><br>");
+      .compile("<a href=\"([^\"]+?)\"[^>]+?data-ved=\"[^\"]+?\"[^>]+?onmousedown=\"[^\"]+?\"><br>");
 
   private final int linksLimit;
   private final Supplier<String> htmlSupplier;

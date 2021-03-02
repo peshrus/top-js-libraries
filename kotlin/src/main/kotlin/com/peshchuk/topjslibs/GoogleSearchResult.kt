@@ -1,7 +1,7 @@
 package com.peshchuk.topjslibs
 
-private const val SEARCH_RESULT_LINK =
-    """<a href="([^"]+)"[^>]+data-ved="[^"]+"[^>]+onmousedown="[^"]+"><br>"""
+private val SEARCH_RESULT_LINK =
+    """<a href="([^"]+?)"[^>]+?data-ved="[^"]+?"[^>]+?onmousedown="[^"]+?"><br>""".toRegex()
 
 class GoogleSearchResult(
     private val linksLimit: Int,
@@ -10,7 +10,7 @@ class GoogleSearchResult(
 
     fun getLinks(): List<String> {
         val html = fetchHtml()
-        val matchResults = SEARCH_RESULT_LINK.toRegex().findAll(html)
+        val matchResults = SEARCH_RESULT_LINK.findAll(html)
 
         return matchResults
             .take(linksLimit)
