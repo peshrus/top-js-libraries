@@ -12,7 +12,7 @@ import (
 func main() {
 	argsWithoutProg := os.Args[1:]
 
-	log.SetFlags(log.Lmicroseconds)
+	log.SetFlags(log.Ldate| log.Lmicroseconds)
 
 	if len(argsWithoutProg) == 0 {
 		_, err := os.Stderr.WriteString("Specify the Google search query, please")

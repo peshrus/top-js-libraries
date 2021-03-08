@@ -35,9 +35,9 @@ JS libraries used there and shows top 5 most popular ones.
   ```
 - [Go](go/topjslibs)
   ```
-  19:16:21.812633 Query: test
-  19:16:21.814159 Start
-  19:16:23.095861 Finish
+  2021/03/08 19:24:02.796742 Query: test
+  2021/03/08 19:24:02.797789 Start
+  2021/03/08 19:24:04.047517 Finish
   [3] base.min;v36269654.js
   [3] modules.min;v36269654.js
   [3] webtk.min;v36269654.js
