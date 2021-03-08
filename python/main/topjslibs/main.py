@@ -34,7 +34,7 @@ async def main(argv):
     logging.info("Finish")
 
     for js, cnt in count.items():
-        print(f"{cnt} {js}")
+        print(f"[{cnt}] {js}")
 
 
 def fetch_html(url) -> str:
