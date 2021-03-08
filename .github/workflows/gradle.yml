@@ -45,4 +45,4 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew build :go:goTest :python:pyTest :nodejs:npm_test
+      run: ./gradlew build :go:goTest :python:pyTest :nodejs:npmInstall :nodejs:npm_test
