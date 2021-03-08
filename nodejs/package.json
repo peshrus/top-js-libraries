@@ -1,0 +1,29 @@
+{
+  "name": "topjslibs",
+  "version": "1.0.0",
+  "description": "The program searches for the specified string on Google, takes first 5 results, collects all the JS libraries used there and shows top 5 most popular ones.",
+  "main": "dist/main.js",
+  "scripts": {
+    "clean:dist": "rimraf dist",
+    "start": "tsc && node dist/main.js test | node_modules\\.bin\\pino-pretty",
+    "test": "mocha test/topjslibs"
+  },
+  "keywords": [],
+  "author": "Ruslan Peshchuk",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bent": "^7.3.2",
+    "@types/mocha": "^8.2.1",
+    "@types/node": "^14.14.31",
+    "@types/pino": "^6.3.6",
+    "mocha": "^8.3.0",
+    "rimraf": "^3.0.2",
+    "ts-node": "^9.1.1",
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3"
+  },
+  "dependencies": {
+    "bent": "^7.3.12",
+    "log-timestamp": "^0.3.0"
+  }
+}
