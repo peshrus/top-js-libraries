@@ -1,0 +1,25 @@
+[package]
+name = "rust"
+version = "0.1.0"
+authors = ["Ruslan Peshchuk <peshrus@gmail.com>"]
+edition = "2018"
+
+[lib]
+name = "top_js_libs_lib"
+path = "src/lib.rs"
+
+[[bin]]
+name = "top_js_libs_bin"
+path = "src/main.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+regex = "1.4.4"
+lazy_static = "1.4.0"
+futures = "0.3.13"
+hyper = { version = "0.14", features = ["full"] }
+hyper-tls = "0.5.0"
+tokio = { version = "1", features = ["full"] }
+log = { version = "0.4.14", features = ["max_level_debug", "release_max_level_info"] }
+env_logger = "0.8.3"

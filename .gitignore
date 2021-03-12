@@ -1,14 +1,18 @@
-# Ignore Gradle project-specific cache directory
+# Gradle
 .gradle
-.gogradle
-
-# Ignore Gradle build output directory
 build
 
+# Idea
 .idea
-.exe
+*.iml
 
-# NodeJS specific #
+# Go
+.gogradle
+*.exe
+
+# NodeJS
 dist
 node_modules
-package-lock.json
+
+# Rust
+target

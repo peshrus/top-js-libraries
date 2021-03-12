@@ -7,66 +7,76 @@ JS libraries used there and shows top 5 most popular ones.
 
 - [Java](java/src/main/java/com/peshchuk/topjslibs)
   ```
-  Mar 08, 2021 7:17:26 PM com.peshchuk.topjslibs.Main main
+  Mar 13, 2021 12:13:12 AM com.peshchuk.topjslibs.Main main
   INFO: Query: test
-  Mar 08, 2021 7:17:26 PM com.peshchuk.topjslibs.Main main
+  Mar 13, 2021 12:13:12 AM com.peshchuk.topjslibs.Main main
   INFO: Start
-  Mar 08, 2021 7:17:29 PM com.peshchuk.topjslibs.Main main
+  Mar 13, 2021 12:13:14 AM com.peshchuk.topjslibs.Main main
   INFO: Finish
-  [3] base.min;v36269654.js
-  [3] modules.min;v36269654.js
-  [3] webtk.min;v36269654.js
-  [3] webtrekk_cookieControl.min;v36269654.js
+  [2] load.php?lang=de&amp;modules=startup&amp;only=scripts&amp;raw=1&amp;skin=vector
+  [2] wrapperMessagingWithoutDetection.js
   [1] application-2325c4e1a6e3b853b8f3.js
+  [1] base.min;v37467901.js
+  [1] consenter-8b7dac5389105a62af9f.js
   ```
 - [Kotlin](kotlin/src/main/kotlin/com/peshchuk/topjslibs)
   ```
-  Mar 08, 2021 7:15:36 PM com.peshchuk.topjslibs.MainKt main
+  Mar 13, 2021 12:13:51 AM com.peshchuk.topjslibs.MainKt main
   INFO: Query: test
-  Mar 08, 2021 7:15:36 PM com.peshchuk.topjslibs.MainKt main
+  Mar 13, 2021 12:13:51 AM com.peshchuk.topjslibs.MainKt main
   INFO: Start
-  Mar 08, 2021 7:15:40 PM com.peshchuk.topjslibs.MainKt main
+  Mar 13, 2021 12:13:54 AM com.peshchuk.topjslibs.MainKt main
   INFO: Finish
-  [3] base.min;v36269654.js
-  [3] modules.min;v36269654.js
-  [3] webtk.min;v36269654.js
-  [3] webtrekk_cookieControl.min;v36269654.js
+  [2] load.php?lang=de&amp;modules=startup&amp;only=scripts&amp;raw=1&amp;skin=vector
+  [2] wrapperMessagingWithoutDetection.js
   [1] application-2325c4e1a6e3b853b8f3.js
+  [1] base.min;v37467901.js
+  [1] consenter-8b7dac5389105a62af9f.js
   ```
 - [Go](go/topjslibs)
   ```
-  2021/03/08 19:24:02.796742 Query: test
-  2021/03/08 19:24:02.797789 Start
-  2021/03/08 19:24:04.047517 Finish
-  [3] base.min;v36269654.js
-  [3] modules.min;v36269654.js
-  [3] webtk.min;v36269654.js
-  [3] webtrekk_cookieControl.min;v36269654.js
+  2021/03/13 00:14:20.290604 Query: test
+  2021/03/13 00:14:20.291650 Start
+  2021/03/13 00:14:21.436489 Finish
+  [2] load.php?lang=de&amp;modules=startup&amp;only=scripts&amp;raw=1&amp;skin=vector
+  [2] wrapperMessagingWithoutDetection.js
   [1] application-2325c4e1a6e3b853b8f3.js
+  [1] base.min;v37467901.js
+  [1] consenter-8b7dac5389105a62af9f.js
   ```
 - [Python](python/main/topjslibs)
   ```
-  03/08/2021 07:11:43 PM Query: test
-  03/08/2021 07:11:43 PM Start
-  03/08/2021 07:11:47 PM Finish
-  [3] base.min;v36269654.js
-  [3] modules.min;v36269654.js
-  [3] webtk.min;v36269654.js
-  [3] webtrekk_cookieControl.min;v36269654.js
+  03/13/2021 12:15:33 AM Query: test
+  03/13/2021 12:15:33 AM Start
+  03/13/2021 12:15:35 AM Finish
+  [2] load.php?lang=de&amp;modules=startup&amp;only=scripts&amp;raw=1&amp;skin=vector
+  [2] wrapperMessagingWithoutDetection.js
   [1] application-2325c4e1a6e3b853b8f3.js
+  [1] base.min;v37467901.js
+  [1] consenter-8b7dac5389105a62af9f.js
   ```
 - [Node.js (TypeScript)](nodejs/src)
   ```
-  [2021-03-08T18:09:12.792Z] Query: test
-  [2021-03-08T18:09:12.794Z] Start
-  [2021-03-08T18:09:15.620Z] Finish
-  [2021-03-08T18:09:15.620Z] [3] base.min;v36269654.js
-  [2021-03-08T18:09:15.620Z] [3] modules.min;v36269654.js
-  [2021-03-08T18:09:15.620Z] [3] webtk.min;v36269654.js
-  [2021-03-08T18:09:15.620Z] [3] webtrekk_cookieControl.min;v36269654.js
-  [2021-03-08T18:09:15.620Z] [1] application-2325c4e1a6e3b853b8f3.js
+  [2021-03-12T23:17:10.405Z] Query: test
+  [2021-03-12T23:17:10.410Z] Start
+  [2021-03-12T23:17:11.598Z] Finish
+  [2021-03-12T23:17:11.598Z] [2] load.php?lang=de&amp;modules=startup&amp;only=scripts&amp;raw=1&amp;skin=vector
+  [2021-03-12T23:17:11.599Z] [2] wrapperMessagingWithoutDetection.js
+  [2021-03-12T23:17:11.600Z] [1] application-2325c4e1a6e3b853b8f3.js
+  [2021-03-12T23:17:11.600Z] [1] base.min;v37467901.js
+  [2021-03-12T23:17:11.601Z] [1] consenter-8b7dac5389105a62af9f.js
   ```
-- Rust (TODO)
+- [Rust](rust/src/top_js_libs)
+  ```
+  [2021-03-12T23:12:33Z INFO  top_js_libs_bin] Query: test
+  [2021-03-12T23:12:33Z INFO  top_js_libs_bin] Start
+  [2021-03-12T23:12:35Z INFO  top_js_libs_bin] Finish
+  [2] load.php?lang=de&amp;modules=startup&amp;only=scripts&amp;raw=1&amp;skin=vector
+  [2] wrapperMessagingWithoutDetection.js
+  [1] application-2325c4e1a6e3b853b8f3.js
+  [1] base.min;v37467901.js
+  [1] consenter-8b7dac5389105a62af9f.js
+  ```
 - Scala (TODO)
 - Ruby (MAYBE)
 - Haskell (MAYBE)
