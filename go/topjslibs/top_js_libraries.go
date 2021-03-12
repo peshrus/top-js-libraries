@@ -37,9 +37,9 @@ type TopJsLibraries struct {
 	FetchHtml  func(url string) string
 }
 
-func (pageJsSources *TopJsLibraries) Count(searchStr string) TopJsNumList {
-	fetchGoogleSearchResultHtml := func() string { return pageJsSources.FetchHtml(SearchUrl + searchStr) }
-	googleSearchResult := GoogleSearchResult{linksLimit: pageJsSources.LinksLimit, fetchHtml: fetchGoogleSearchResultHtml}
+func (topJsLibraries *TopJsLibraries) Count(searchStr string) TopJsNumList {
+	fetchGoogleSearchResultHtml := func() string { return topJsLibraries.FetchHtml(SearchUrl + searchStr) }
+	googleSearchResult := GoogleSearchResult{linksLimit: topJsLibraries.LinksLimit, fetchHtml: fetchGoogleSearchResultHtml}
 	links := googleSearchResult.getLinks()
 	jsSources := make(chan string)
 	var wg sync.WaitGroup
@@ -48,7 +48,7 @@ func (pageJsSources *TopJsLibraries) Count(searchStr string) TopJsNumList {
 		wg.Add(1)
 
 		url := link
-		fetchPageHtml := func() string { return pageJsSources.FetchHtml(url) }
+		fetchPageHtml := func() string { return topJsLibraries.FetchHtml(url) }
 		pageJsSources := PageJsSources{fetchHtml: fetchPageHtml}
 
 		go getPageJsSources(&pageJsSources, jsSources, &wg)
@@ -70,7 +70,7 @@ func (pageJsSources *TopJsLibraries) Count(searchStr string) TopJsNumList {
 	}
 	sort.Sort(result)
 
-	return result[:pageJsSources.TopLimit]
+	return result[:topJsLibraries.TopLimit]
 }
 
 func getPageJsSources(pageJsSources *PageJsSources, jsSources chan string, wg *sync.WaitGroup) {

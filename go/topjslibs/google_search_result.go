@@ -19,11 +19,11 @@ func (googleSearchResult *GoogleSearchResult) getLinks() []string {
 			continue
 		}
 
-		result = append(result, regexGroups[1])
-
 		if len(result) == googleSearchResult.linksLimit {
 			break
 		}
+
+		result = append(result, regexGroups[1])
 	}
 
 	return result
