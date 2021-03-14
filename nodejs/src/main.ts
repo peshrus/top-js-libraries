@@ -2,7 +2,7 @@ import bent from "bent";
 import "log-timestamp";
 import {TopJsLibraries} from "./topjslibs/TopJsLibraries";
 
-function main(args: string[]) {
+async function main(args: string[]) {
   if (args.length === 0) {
     console.log("Specify the Google search query, please");
     process.exit(2);
@@ -14,13 +14,13 @@ function main(args: string[]) {
   console.log("Start");
 
   const topJsLibraries = new TopJsLibraries(5, 5, fetchHtml);
-  topJsLibraries.count(searchStr).then((count) => {
-    console.log("Finish");
+  const count = await topJsLibraries.count(searchStr);
 
-    for (const entry of count) {
-      console.log(`[${entry[1]}] ${entry[0]}`);
-    }
-  });
+  console.log("Finish");
+
+  for (const entry of count) {
+    console.log(`[${entry[1]}] ${entry[0]}`);
+  }
 }
 
 async function fetchHtml(url: string): Promise<string> {
@@ -33,5 +33,5 @@ async function fetchHtml(url: string): Promise<string> {
 }
 
 if (require.main === module) {
-  main(process.argv.slice(2));
+  (async () => main(process.argv.slice(2)))();
 }

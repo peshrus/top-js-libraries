@@ -47,11 +47,7 @@ export class TopJsLibraries {
       }
     }
 
-    const sortedJsCount = new Array<[string, number]>();
-    for (const entry of jsCount.entries()) {
-      sortedJsCount.push(entry);
-    }
-
+    const sortedJsCount = Array.from(jsCount.entries());
     sortedJsCount.sort((a, b) => (a[1] > b[1] || (a[1] === b[1] && a[0] < b[0])) ? -1 : 1);
 
     return sortedJsCount.slice(0, this.topLimit);
