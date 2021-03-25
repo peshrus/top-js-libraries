@@ -3,10 +3,7 @@ package com.peshchuk.topjslibs
 private val SEARCH_RESULT_LINK =
     """<a href="([^"]+?)"[^>]+?data-ved="[^"]+?"[^>]+?onmousedown="[^"]+?"><br>""".toRegex()
 
-class GoogleSearchResult(
-    private val linksLimit: Int,
-    private val fetchHtml: () -> String
-) {
+class GoogleSearchResult(private val linksLimit: Int, private val fetchHtml: () -> String) {
 
     fun getLinks(): List<String> {
         val html = fetchHtml()

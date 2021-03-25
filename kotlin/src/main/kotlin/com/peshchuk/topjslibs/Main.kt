@@ -7,6 +7,7 @@ import io.ktor.client.request.headers
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.readText
 import kotlinx.coroutines.runBlocking
+import java.util.logging.Level
 import java.util.logging.Logger
 
 private val LOGGER = Logger.getLogger("main")
@@ -32,23 +33,28 @@ private fun fetchHtml(url: String): String {
 
     return runBlocking {
         HttpClient(CIO).use { client ->
-            val response: HttpResponse = client.get(url) {
-                headers {
-                    append(
-                        "User-Agent",
-                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0"
-                    )
-                    append("Referer", "http://www.google.com")
+            try {
+                val response: HttpResponse = client.get(url) {
+                    headers {
+                        append(
+                            "User-Agent",
+                            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0"
+                        )
+                        append("Referer", "http://www.google.com")
+                    }
                 }
-            }
 
-            val status = response.status.value
+                val status = response.status.value
 
-            if (status < 200 || status >= 400) {
-                LOGGER.severe("HTTP Status $status: $url")
+                if (status < 200 || status >= 400) {
+                    LOGGER.severe("HTTP Status $status: $url")
+                    ""
+                } else {
+                    response.readText()
+                }
+            } catch (e: Exception) {
+                LOGGER.log(Level.SEVERE, "Cannot fetch: $url", e)
                 ""
-            } else {
-                response.readText()
             }
         }
     }

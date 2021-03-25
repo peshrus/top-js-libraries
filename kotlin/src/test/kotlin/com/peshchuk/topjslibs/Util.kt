@@ -21,7 +21,7 @@ class Util {
             return try {
                 val buildDir = Path.of(Util::class.java.getResource("/").toURI()).toString()
                 val path = Paths.get(buildDir, "../../../../../html", fileName)
-                return Files.readString(path)
+                Files.readString(path)
             } catch (e: IOException) {
                 LOGGER.log(Level.SEVERE, "Cannot get HTML", e)
                 ""

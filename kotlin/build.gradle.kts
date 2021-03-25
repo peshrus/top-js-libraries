@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.4.30"
+    kotlin("jvm") version "1.4.31"
 }
 
 group = "com.peshchuk"
@@ -9,11 +9,18 @@ repositories {
     jcenter()
 }
 
+val ktorVersion = "1.5.2"
+val coroutinesVersion = "1.4.3-native-mt"
+
 dependencies {
     implementation(kotlin("stdlib"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
-    implementation("io.ktor:ktor-client-core:1.5.1")
-    implementation("io.ktor:ktor-client-cio:1.5.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion") {
+        version {
+            strictly(coroutinesVersion)
+        }
+    }
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
 
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
