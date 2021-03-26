@@ -16,3 +16,13 @@ node_modules
 
 # Rust
 target
+
+# sbt
+.bsp
+.cache
+.history
+.lib
+lib_managed
+src_managed
+project/boot
+project/plugins/project

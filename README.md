@@ -77,13 +77,30 @@ JS libraries used there and shows top 5 most popular ones.
   [1] base.min;v37467901.js
   [1] consenter-8b7dac5389105a62af9f.js
   ```
-- Scala (TODO)
-- Ruby (MAYBE)
-- Haskell (MAYBE)
-- Elixir (MAYBE)
-- Swift (MAYBE)
-- PHP (MAYBE)
-- C# (MAYBE)
-- C++ (MAYBE)
-- C (MAYBE)
-- Perl (MAYBE)
+- [Scala](scala/src/main/scala/com/peshchuk/topjslibs)
+  ```
+  Mar 26, 2021 6:53:19 PM com.peshchuk.topjslibs.Main$ delayedEndpoint$com$peshchuk$topjslibs$Main$1
+  INFO: Query: test
+  Mar 26, 2021 6:53:19 PM com.peshchuk.topjslibs.Main$ delayedEndpoint$com$peshchuk$topjslibs$Main$1
+  INFO: Start
+  Mar 26, 2021 6:53:21 PM com.peshchuk.topjslibs.Main$ delayedEndpoint$com$peshchuk$topjslibs$Main$1
+  INFO: Finish
+  [3] wrapperMessagingWithoutDetection.js
+  [2] application-2325c4e1a6e3b853b8f3.js
+  [2] consenter-8b7dac5389105a62af9f.js
+  [2] embetty-976b1d623e09c298fb43a432e476d95325b69ec31a456a2e787c3681a123670e.js
+  [2] jquery-b4782eb46acad289c72c.js
+  ```
+- Ruby
+- PHP
+- C#
+- C++
+- C
+- Perl
+- Clojure
+- Haskell
+- Elixir
+- Swift
+- Julia
+- nim
+- F#
