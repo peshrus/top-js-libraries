@@ -2,9 +2,9 @@ package com.peshchuk.topjslibs
 
 private val SCRIPT_SRC = """<script[^>]+?src=["'](?:[^"']+/)?([^"']+?)["']""".toRegex()
 
-class PageJsSources(private val fetchHtml: () -> String) {
+class PageJsSources(private val fetchHtml: suspend () -> String) {
 
-    fun get(): Set<String> {
+    suspend fun get(): Set<String> {
         val html = fetchHtml()
         val matchResults = SCRIPT_SRC.findAll(html)
 

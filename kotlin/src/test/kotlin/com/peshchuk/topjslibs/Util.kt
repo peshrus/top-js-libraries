@@ -19,7 +19,7 @@ class Util {
     companion object {
         fun getHtmlFrom(fileName: String): String {
             return try {
-                val buildDir = Path.of(Util::class.java.getResource("/").toURI()).toString()
+                val buildDir = Path.of(Util::class.java.getResource("/")!!.toURI()).toString()
                 val path = Paths.get(buildDir, "../../../../../html", fileName)
                 Files.readString(path)
             } catch (e: IOException) {

@@ -1,28 +1,28 @@
 package com.peshchuk.topjslibs
 
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.coroutineScope
 
 private const val SEARCH_URL = "https://www.google.com/search?q="
 
 class TopJsLibraries(
     private val linksLimit: Int,
     private val topLimit: Int,
-    private val fetchHtml: (String) -> String
+    private val fetchHtml: suspend (String) -> String
 ) {
 
-    fun count(searchStr: String): Map<String, Int> {
+    suspend fun count(searchStr: String): Map<String, Int> {
         val links = GoogleSearchResult(linksLimit) { fetchHtml(SEARCH_URL + searchStr) }.getLinks()
-        val pagesJsSources = links.map { link ->
-            GlobalScope.async {
-                PageJsSources { fetchHtml(link) }.get()
+        return coroutineScope {
+            val pagesJsSources = links.map { link ->
+                async {
+                    PageJsSources { fetchHtml(link) }.get()
+                }
             }
-        }
-        val sortByCountDescSrcAsc = compareByDescending<Pair<String, Int>> { (_, value) -> value }
-            .thenComparing { (key, _) -> key }
+            val sortByCountDescSrcAsc =
+                compareByDescending<Pair<String, Int>> { (_, value) -> value }
+                    .thenComparing { (key, _) -> key }
 
-        return runBlocking {
             pagesJsSources
                 .flatMap { it.await() }
                 .groupingBy { it }
