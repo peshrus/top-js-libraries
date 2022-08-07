@@ -5,7 +5,7 @@ import io.ktor.client.engine.cio.CIO
 import io.ktor.client.request.get
 import io.ktor.client.request.headers
 import io.ktor.client.statement.HttpResponse
-import io.ktor.client.statement.readText
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpHeaders
 import java.util.logging.Level
 import java.util.logging.Logger
@@ -50,7 +50,7 @@ private suspend fun fetchHtml(url: String): String {
                 LOGGER.severe("HTTP Status $status: $url")
                 ""
             } else {
-                response.readText()
+                response.bodyAsText()
             }
         } catch (e: Exception) {
             LOGGER.log(Level.SEVERE, "Cannot fetch: $url", e)

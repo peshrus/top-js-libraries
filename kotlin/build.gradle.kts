@@ -1,6 +1,6 @@
 plugins {
     // See https://kotlinlang.org/docs/releases.html#release-details
-    kotlin("jvm") version "1.5.31"
+    kotlin("jvm") version "1.7.10"
 }
 
 group = "com.peshchuk"
@@ -10,8 +10,8 @@ repositories {
     jcenter()
 }
 
-val ktorVersion = "1.6.3"
-val coroutinesVersion = "1.5.2"
+val ktorVersion = "2.0.3"
+val coroutinesVersion = "1.6.4"
 
 dependencies {
     implementation(kotlin("stdlib"))
@@ -34,6 +34,7 @@ tasks {
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions {
             jvmTarget = "15"
+            freeCompilerArgs = freeCompilerArgs + "-Xuse-k2"
         }
     }
 
